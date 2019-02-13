@@ -7,33 +7,42 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, FlatList} from 'react-native';
-import pokemons from './pokemonStore';
-
-const instructions = Platform.select({
-  web: 'Press F5 to reload',
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Switch, Router, Route } from './routing';
+import Home from './Home';
+import Pokemon from './Pokemon';
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  state = {
+    selectedPokemon: null
+  }
+
+  selectPokemon = (selectedPokemon) => {
+    this.setState({ selectedPokemon })
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native on the web!</Text>
-        <Text style={styles.instructions}>This is amazing</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <View style={{ flex: 1 }}>
-          <FlatList
-            data={pokemons}
-            keyExtractor={(pokemon) => pokemon.number}
-            renderItem={({ item }) => <Text>{item.name}</Text>}
-          />
-        </View>
+      <View style={styles.container} >
+        <Router>
+          <Switch>
+            <Route
+              exact
+              path='/'
+              render={(props) => <Home {...props} selectPokemon={this.selectPokemon} />}
+            />
+              
+            <Route
+              exact
+              path='/pokemon'
+              render={(props) => <Pokemon {...props} pokemon={this.state.selectedPokemon} />}
+            />
+          </Switch>
+        </Router>
+        
       </View>
     );
   }
@@ -45,15 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    marginTop: 50,
+    padding: 50
+  }
 });

@@ -2,13 +2,15 @@
   "name": "HybridApp",
   "version": "0.0.1",
   "private": true,
+  "main": "electron/electron-starter.js",
   "scripts": {
-    "start-web": "react-scripts start",
-    "build-web": "react-scripts build",
-    "start:ios": "react-native run-ios --port 1234",
-    "start:android": "react-native run-android --port 1234",
     "android:reverse": "adb reverse tcp:8081 tcp:1234",
+    "build-web": "react-scripts build",
+    "electron": "electron .",
     "start": "node node_modules/react-native/local-cli/cli.js start --port 1234",
+    "start:android": "react-native run-android --port 1234",
+    "start:ios": "react-native run-ios --port 1234",
+    "start-web": "react-scripts start",
     "test": "jest"
   },
   "dependencies": {
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
+    "electron": "^4.0.4",
     "metro-react-native-babel-preset": "0.51.1",
     "react-test-renderer": "16.6.3"
   },

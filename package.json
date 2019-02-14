@@ -5,7 +5,10 @@
   "scripts": {
     "start-web": "react-scripts start",
     "build-web": "react-scripts build",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start:ios": "react-native run-ios --port 1234",
+    "start:android": "react-native run-android --port 1234",
+    "android:reverse": "adb reverse tcp:8081 tcp:1234",
+    "start": "node node_modules/react-native/local-cli/cli.js start --port 1234",
     "test": "jest"
   },
   "dependencies": {
